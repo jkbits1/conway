@@ -8,24 +8,59 @@
 
   var table = document.getElementById('gridArea');
 
+  var grid = {};
+
   var rows = 3;
   var cols = 3;
 
-  var tr = undefined;
-  var td = undefined;
+  initGrid(grid);
+  initTable(table, grid);
 
-  for (var row = 0; row < rows; row++){
+  function Cell(grid, row, col) {
 
-    tr = document.createElement('tr');
+    this.grid = grid;
+    this.row = row;
+    this.col = col;
 
-    for (var col = 0; col < cols; col++) {
+    this.element = undefined;
+  }
 
-      td = document.createElement('td');
+  // create DOM element and attach to grid
+  function initTable(table, grid) {
 
-      tr.appendChild(td);
+    var tr = undefined;
+    var td = undefined;
+
+    for (var row = 0; row < rows; row++){
+
+      tr = document.createElement('tr');
+
+      for (var col = 0; col < cols; col++) {
+
+        td = document.createElement('td');
+
+        grid.items[row][col].element = td;
+
+        tr.appendChild(td);
+      }
+
+      table.appendChild(tr);
     }
+  }
 
-    table.appendChild(tr);
+  function initGrid(grid) {
+
+    grid.items = [];
+
+    for (var row = 0; row < rows; row++){
+
+      grid.items.push([]);
+
+      for (var col = 0; col < cols; col++) {
+
+        grid.items[row][col] = new Cell(grid, row, col);
+      }
+    }
   }
 
 })(window, document);
