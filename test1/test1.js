@@ -8,13 +8,38 @@
 
   var table = document.getElementById('gridArea');
 
+  var button = document.getElementById('Run');
+
   var grid = {};
+
+  grid.updateGrid = updateGrid;
 
   var rows = 3;
   var cols = 3;
 
-  initGrid(grid);
-  initTable(table, grid);
+  function initGame() {
+
+    initGrid(grid);
+    initTable(table, grid);
+
+    button.addEventListener('click', (function () {
+
+      return function(evt) {
+
+        grid.updateGrid();
+      };
+    })(grid));
+  }
+
+  function updateGrid() {
+
+    for (var row = 0; row < rows; row++){
+      for (var col = 0; col < cols; col++) {
+
+        grid.items[row][col].element.className = "cell alive";
+      }
+    }
+  }
 
   function Cell(grid, row, col) {
 
@@ -81,6 +106,8 @@
       }
     }
   }
+
+  initGame();
 
 })(window, document);
 
