@@ -23,6 +23,15 @@
     this.col = col;
 
     this.element = undefined;
+
+    this.alive = false;
+
+    this.toggleState = function(evt) {
+
+      this.alive = !this.alive;
+
+      this.element.className = "cell alive";
+    };
   }
 
   // create DOM element and attach to grid
@@ -39,7 +48,17 @@
 
         td = document.createElement('td');
 
+        td.className = "cell dead";
+
         grid.items[row][col].element = td;
+
+        td.addEventListener('click', (function (cell) {
+
+          return function(evt) {
+            cell.toggleState();
+            // refresh grid
+          };
+        })(grid.items[row][col]));
 
         tr.appendChild(td);
       }

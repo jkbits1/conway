@@ -1,0 +1,21 @@
+
+#gridArea {
+  margin: 50px;
+}
+
+.cell {
+  width: 10px;
+  height: 10px;
+
+  border: 1px solid #000000;
+}
+
+.cell.alive {
+
+  background-color: blue;
+}
+
+.cell.dead {
+
+  background-color: white;
+}
