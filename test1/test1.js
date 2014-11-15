@@ -10,16 +10,21 @@
 
   var button = document.getElementById('Run');
 
-  var grid = {};
+  var gameRows = 3;
+  var gameCols = 3;
 
-  grid.updateGrid = updateGrid;
+  var grid = {
 
-  var rows = 3;
-  var cols = 3;
+    rows: gameRows,
+    cols: gameCols,
+    items: [],
+    updateGrid: updateGrid,
+    initGrid: initGrid
+  };
 
   function initGame() {
 
-    initGrid(grid);
+    grid.initGrid();
     initTable(table, grid);
 
     button.addEventListener('click', (function () {
@@ -33,8 +38,10 @@
 
   function updateGrid() {
 
-    for (var row = 0; row < rows; row++){
-      for (var col = 0; col < cols; col++) {
+    var grid = this;
+
+    for (var row = 0; row < grid.rows; row++){
+      for (var col = 0; col < grid.cols; col++) {
 
         grid.items[row][col].element.className = "cell alive";
       }
@@ -65,11 +72,11 @@
     var tr = undefined;
     var td = undefined;
 
-    for (var row = 0; row < rows; row++){
+    for (var row = 0; row < gameRows; row++){
 
       tr = document.createElement('tr');
 
-      for (var col = 0; col < cols; col++) {
+      for (var col = 0; col < gameCols; col++) {
 
         td = document.createElement('td');
 
@@ -94,15 +101,18 @@
 
   function initGrid(grid) {
 
-    grid.items = [];
+    var grid = this;
 
-    for (var row = 0; row < rows; row++){
+    var items = grid.items;
+//    grid.items = [];
 
-      grid.items.push([]);
+    for (var row = 0; row < grid.rows; row++){
 
-      for (var col = 0; col < cols; col++) {
+      items.push([]);
 
-        grid.items[row][col] = new Cell(grid, row, col);
+      for (var col = 0; col < grid.cols; col++) {
+
+        items[row][col] = new Cell(grid, row, col);
       }
     }
   }
