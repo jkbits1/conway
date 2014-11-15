@@ -48,6 +48,7 @@
     }
   }
 
+  // used as a constructor
   function Cell(grid, row, col) {
 
     this.grid = grid;
@@ -99,7 +100,7 @@
     }
   }
 
-  function initGrid(grid) {
+  function initGrid() {
 
     var grid = this;
 
